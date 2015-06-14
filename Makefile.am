@@ -11,10 +11,6 @@ if ENABLE_AUTOCLOSE
 SUBDIRS += autoclose
 endif
 
-if ENABLE_AUTOMARK
-SUBDIRS += automark
-endif
-
 if ENABLE_CODENAV
 SUBDIRS += codenav
 endif
