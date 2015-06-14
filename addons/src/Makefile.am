@@ -9,7 +9,6 @@ addons_la_SOURCES = \
 	ao_openuri.h \
 	ao_systray.h \
 	ao_bookmarklist.h \
-	ao_markword.h \
 	ao_tasks.h \
 	ao_xmltagging.h \
 	ao_wrapwords.h \
@@ -19,7 +18,6 @@ addons_la_SOURCES = \
 	ao_openuri.c \
 	ao_systray.c \
 	ao_bookmarklist.c \
-	ao_markword.c \
 	ao_tasks.c \
 	ao_xmltagging.c \
 	ao_wrapwords.c
