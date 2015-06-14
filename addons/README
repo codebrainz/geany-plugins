@@ -23,7 +23,6 @@ Features
 * Task list in a message window
 * Bookmark list in a sidebar
 * Status icon in the notification area
-* Highlighting all occurrences of a word when double-clicking it
 * Strip trailing blank lines when saving
 * XMLtagging
 * Enclose selected text with characters
@@ -62,11 +61,6 @@ quickly show and hide the Geany main window.
 Add a list of defined bookmarks (line markers) to the sidebar.
 This list contains all bookmarks defined in the current file
 for faster overview and access.
-
-*Mark Word*
-^^^^^^^^^^^
-When double-clicking a word, all occurrences of this word are searched
-and then highlighted (similar to Geany's 'Mark All' Find option).
 
 *Strip trailing blank lines*
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
