@@ -156,6 +156,10 @@ if ENABLE_TABLECONVERT
 SUBDIRS += tableconvert
 endif
 
+if ENABLE_TABSORT
+SUBDIRS += tabsort
+endif
+
 if ENABLE_TREEBROWSER
 SUBDIRS += treebrowser
 endif

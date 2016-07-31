@@ -295,6 +295,9 @@ shiftcolumn/src/shiftcolumn.c
 tableconvert/src/tableconvert.c
 tableconvert/src/tableconvert_ui.c
 
+# tabsort
+tabsort/tabsort.c
+
 # treebrowser
 treebrowser/src/treebrowser.c
 
