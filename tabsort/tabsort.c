@@ -482,6 +482,13 @@ init (GeanyPlugin *plugin, gpointer pluginData)
 
   plugin_signal_connect (geany_plugin,
                          NULL,
+                         "document-save",
+                         TRUE,
+                         G_CALLBACK (onDocumentsChanged),
+                         NULL);
+
+  plugin_signal_connect (geany_plugin,
+                         NULL,
                          "geany-startup-complete",
                          TRUE,
                          G_CALLBACK (onGeanyStartupComplete),
