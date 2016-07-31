@@ -56,10 +56,7 @@ compareTabs (gconstpointer a, gconstpointer b)
 static gint
 compareTabsReverse (gconstpointer a, gconstpointer b)
 {
-  const struct TabData *tabA = *((struct TabData **) a);
-  const struct TabData *tabB = *((struct TabData **) b);
-  gint value = g_utf8_collate (tabA->fn, tabB->fn);
-  return (value < 0) ? 1 : ((value > 0) ? -1 : 0);
+  return -compareTabs (a, b);
 }
 
 static void
