@@ -468,13 +468,6 @@ init (GeanyPlugin *plugin, gpointer pluginData)
 
   plugin_signal_connect (geany_plugin,
                          NULL,
-                         "document-close",
-                         TRUE,
-                         G_CALLBACK (onDocumentsChanged),
-                         NULL);
-
-  plugin_signal_connect (geany_plugin,
-                         NULL,
                          "document-new",
                          TRUE,
                          G_CALLBACK (onDocumentsChanged),
