@@ -50,7 +50,7 @@ compareTabs (gconstpointer a, gconstpointer b)
 {
   const struct TabData *tabA = *((struct TabData **) a);
   const struct TabData *tabB = *((struct TabData **) b);
-  return g_utf8_collate (tabA->fn, tabB->fn);
+  return strcmp (tabA->fn, tabB->fn);
 }
 
 static gint
@@ -81,21 +81,24 @@ sortTabs (gint mode)
     {
       struct TabData *tabData = g_slice_new0 (struct TabData);
       GeanyDocument *doc = document_get_from_page (i);
+      gchar *fn;
       if (state.mode == SORT_TABS_BY_BASENAME ||
           state.mode == SORT_TABS_BY_BASENAME_REVERSE)
         {
           if (doc->file_name != NULL)
-            tabData->fn = g_path_get_basename (doc->file_name);
+            fn = g_path_get_basename (doc->file_name);
           else
-            tabData->fn = document_get_basename_for_display (doc, -1);
+            fn = document_get_basename_for_display (doc, -1);
         }
       else
         {
           if (doc->file_name != NULL)
-            tabData->fn = g_strdup (doc->file_name);
+            fn = g_strdup (doc->file_name);
           else
-            tabData->fn = document_get_basename_for_display (doc, -1);
+            fn = document_get_basename_for_display (doc, -1);
         }
+      tabData->fn = g_utf8_collate_key_for_filename (fn, -1);
+      g_free (fn);
       tabData->tab = gtk_notebook_get_nth_page (nb, i);
       g_ptr_array_add (arr, tabData);
     }
