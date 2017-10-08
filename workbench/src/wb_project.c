@@ -26,6 +26,7 @@
 #endif
 
 #include <geanyplugin.h>
+#include "../../utils/src/filelist.h"
 #include "wb_globals.h"
 #include "wb_project.h"
 #include "utils.h"
@@ -548,10 +549,11 @@ static guint wb_project_get_file_count(WB_PROJECT *prj)
 /* Rescan/update the file list of a project dir. */
 static guint wb_project_dir_rescan_int(WB_PROJECT *prj, WB_PROJECT_DIR *root)
 {
-	GSList *pattern_list = NULL;
-	GSList *ignored_dirs_list = NULL;
-	GSList *ignored_file_list = NULL;
-	GHashTable *visited_paths;
+	gchar **file_patterns;
+	//GSList *pattern_list = NULL;
+	//GSList *ignored_dirs_list = NULL;
+	//GSList *ignored_file_list = NULL;
+	//GHashTable *visited_paths;
 	GSList *lst;
 	GSList *elem = NULL;
 	guint filenum = 0;
@@ -562,24 +564,28 @@ static guint wb_project_dir_rescan_int(WB_PROJECT *prj, WB_PROJECT_DIR *root)
 
 	if (!root->file_patterns || !root->file_patterns[0])
 	{
-		const gchar *all_pattern[] = { "*", NULL };
-		pattern_list = get_precompiled_patterns((gchar **)all_pattern);
+		//const gchar *all_pattern[] = { "*", NULL };
+		//pattern_list = get_precompiled_patterns((gchar **)all_pattern);
+		file_patterns = NULL;
 	}
 	else
 	{
-		pattern_list = get_precompiled_patterns(root->file_patterns);
+		//pattern_list = get_precompiled_patterns(root->file_patterns);
+		file_patterns = root->file_patterns;
 	}
 
-	ignored_dirs_list = get_precompiled_patterns(root->ignored_dirs_patterns);
-	ignored_file_list = get_precompiled_patterns(root->ignored_file_patterns);
+	//ignored_dirs_list = get_precompiled_patterns(root->ignored_dirs_patterns);
+	//ignored_file_list = get_precompiled_patterns(root->ignored_file_patterns);
 
-	visited_paths = g_hash_table_new_full(g_str_hash, g_str_equal, g_free, NULL);
+	//visited_paths = g_hash_table_new_full(g_str_hash, g_str_equal, g_free, NULL);
 	searchdir = get_combined_path(prj->filename, root->base_dir);
 	root->file_count = 0;
 	root->folder_count = 0;
-	lst = wb_project_dir_get_file_list
-		(root, searchdir, pattern_list, ignored_dirs_list, ignored_file_list, visited_paths);
-	g_hash_table_destroy(visited_paths);
+	//lst = wb_project_dir_get_file_list
+	//	(root, searchdir, pattern_list, ignored_dirs_list, ignored_file_list, visited_paths);
+	lst = filelist_scan_directory(&root->file_count, &root->folder_count, searchdir,
+		file_patterns, root->ignored_dirs_patterns, root->ignored_file_patterns);
+	//g_hash_table_destroy(visited_paths);
 	g_free(searchdir);
 
 	foreach_slist(elem, lst)
@@ -596,14 +602,14 @@ static guint wb_project_dir_rescan_int(WB_PROJECT *prj, WB_PROJECT_DIR *root)
 	g_slist_foreach(lst, (GFunc) g_free, NULL);
 	g_slist_free(lst);
 
-	g_slist_foreach(pattern_list, (GFunc) g_pattern_spec_free, NULL);
+	/*g_slist_foreach(pattern_list, (GFunc) g_pattern_spec_free, NULL);
 	g_slist_free(pattern_list);
 
 	g_slist_foreach(ignored_dirs_list, (GFunc) g_pattern_spec_free, NULL);
 	g_slist_free(ignored_dirs_list);
 
 	g_slist_foreach(ignored_file_list, (GFunc) g_pattern_spec_free, NULL);
-	g_slist_free(ignored_file_list);
+	g_slist_free(ignored_file_list);*/
 
 	return filenum;
 }
